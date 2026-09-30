@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新手养猫全攻略 · 简州猫专属</title>
+<style>
+  :root{
+    --bg:#edf3fb;
+    --bg-soft:#dfe9f5;
+    --card:#ffffff;
+    --ink:#253140;
+    --ink-soft:#55687a;
+    --line:#d3e0ef;
+    --blue:#3b6fd4;
+    --blue-soft:#e4edfa;
+    --blue-deep:#2854b0;
+    --sky:#2f8fbf;
+    --sky-soft:#dff0f9;
+    --sky-deep:#1f6fa8;
+    --red:#d9543f;
+    --red-soft:#fbe9e5;
+    --green:#3e8e5a;
+    --green-soft:#e5f3ea;
+    --gold:#c08a28;
+    --gold-soft:#faf0d8;
+    --radius:18px;
+    --shadow:0 6px 22px rgba(40,70,110,.08);
+    --shadow-hover:0 10px 30px rgba(40,70,110,.14);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--blue-deep);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* ===== 顶部导航 ===== */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(237,243,251,.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1080px;margin:0 auto;padding:10px 20px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .nav-logo{font-weight:700;color:var(--blue-deep);white-space:nowrap;font-size:15px}
+  .nav-links{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{
+    color:var(--ink-soft);font-size:13.5px;padding:6px 11px;border-radius:999px;
+    white-space:nowrap;transition:.2s;
+  }
+  .nav-links a:hover{background:var(--blue-soft);color:var(--blue-deep);text-decoration:none}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px 80px}
+
+  /* ===== Hero ===== */
+  .hero{
+    margin:28px 0 10px;
+    background:linear-gradient(135deg,#d3e5fb 0%,#e8f1fb 55%,#dff0f9 100%);
+    border:1px solid var(--line);
+    border-radius:24px;padding:34px 30px;
+    position:relative;overflow:hidden;
+  }
+  .hero::after{
+    content:"🐾";position:absolute;right:-10px;bottom:-18px;font-size:120px;opacity:.1;
+    transform:rotate(-12deg);
+  }
+  .hero .tag{
+    display:inline-block;background:var(--blue);color:#fff;font-size:12.5px;font-weight:600;
+    padding:4px 12px;border-radius:999px;letter-spacing:.5px;margin-bottom:14px;
+  }
+  .hero h1{font-size:clamp(24px,4.5vw,34px);line-height:1.3;color:var(--ink);margin-bottom:10px}
+  .hero .sub{color:var(--ink-soft);font-size:15px;max-width:640px}
+  .profile{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:22px;
+  }
+  .profile .p{
+    background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.95);border-radius:14px;
+    padding:12px 14px;
+  }
+  .profile .p .k{font-size:12px;color:var(--ink-soft);display:block;margin-bottom:2px}
+  .profile .p .v{font-size:15.5px;font-weight:700;color:var(--ink)}
+  .profile .p .v .ok{color:var(--sky-deep)}
+
+  /* ===== 章节通用 ===== */
+  section{margin-top:46px}
+  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .sec-head .no{
+    width:38px;height:38px;border-radius:12px;flex:0 0 auto;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--blue);color:#fff;font-weight:800;font-size:17px;
+  }
+  .sec-head h2{font-size:clamp(20px,3vw,25px);color:var(--ink)}
+  .sec-head .emo{font-size:24px}
+  .sec-desc{color:var(--ink-soft);font-size:14.5px;margin:8px 0 20px;max-width:780px}
+
+  /* ===== 时间轴表格 ===== */
+  .table-wrap{overflow-x:auto;border-radius:var(--radius);box-shadow:var(--shadow);background:var(--card);border:1px solid var(--line)}
+  table.timeline{width:100%;border-collapse:collapse;min-width:760px;font-size:13.8px}
+  .timeline th,.timeline td{border-bottom:1px solid var(--line);padding:14px 16px;vertical-align:top;text-align:left}
+  .timeline thead th{background:var(--bg-soft);position:sticky;top:0}
+  .timeline thead th .st{display:block;font-size:12px;color:var(--ink-soft);font-weight:500;margin-top:2px}
+  .timeline thead th.now{background:var(--blue);color:#fff}
+  .timeline thead th.now .st{color:#eaf1fd}
+  .timeline tbody th{background:var(--bg-soft);color:var(--ink);font-weight:700;white-space:nowrap;width:110px}
+  .timeline tbody th .ic{display:block;font-size:20px;margin-bottom:2px}
+  .timeline td ul{list-style:none;padding:0}
+  .timeline td li{position:relative;padding-left:16px;margin-bottom:6px;color:var(--ink-soft)}
+  .timeline td li::before{content:"·";position:absolute;left:2px;color:var(--blue);font-weight:800}
+  .timeline td li:last-child{margin-bottom:0}
+  .timeline td li b{color:var(--ink)}
+  .now-col{background:var(--blue-soft)}
+
+  /* ===== 通用信息表 ===== */
+  table.info{width:100%;border-collapse:collapse;font-size:13.8px;min-width:560px}
+  .info th,.info td{border-bottom:1px solid var(--line);padding:12px 14px;text-align:left;vertical-align:top}
+  .info thead th{background:var(--blue);color:#fff;font-weight:600;white-space:nowrap}
+  .info tbody th{background:var(--bg-soft);color:var(--ink);font-weight:700;white-space:nowrap}
+  .info td{color:var(--ink-soft)}
+  .info td b{color:var(--ink)}
+  .info tr:last-child th,.info tr:last-child td{border-bottom:none}
+
+  /* ===== 清单 & 定期 ===== */
+  .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+  .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
+  .panel h3{font-size:16.5px;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+  .panel .pn-sub{font-size:12.5px;color:var(--ink-soft);margin-bottom:12px}
+  .panel ul{list-style:none}
+  .panel ul li{
+    position:relative;padding:9px 10px 9px 34px;border-radius:10px;margin-bottom:6px;
+    font-size:13.8px;background:var(--bg-soft);
+  }
+  .panel ul li .why{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:2px}
+  .panel ul li::before{position:absolute;left:10px;top:10px;font-size:16px}
+  .must ul li::before{content:"⭐"}
+  .nice ul li::before{content:"👍"}
+  .opt ul li::before{content:"💡"}
+
+  .freq{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:999px;margin-left:6px;vertical-align:middle}
+  .f-daily{background:var(--red-soft);color:var(--red)}
+  .f-week{background:var(--blue-soft);color:var(--blue-deep)}
+  .f-month{background:var(--gold-soft);color:var(--gold)}
+  .f-year{background:var(--green-soft);color:var(--green)}
+  .f-6m{background:var(--sky-soft);color:var(--sky-deep)}
+
+  .schedule li{padding-left:12px !important}
+  .schedule li::before{content:"" !important}
+  .schedule .row{display:flex;gap:10px;align-items:flex-start}
+  .schedule .row .why{flex:1}
+
+  /* ===== 训练 ===== */
+  .train-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+  .train{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
+  .train h3{font-size:16.5px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .train ol{padding-left:20px}
+  .train ol li{margin-bottom:8px;font-size:14px;color:var(--ink-soft)}
+  .train ol li b{color:var(--ink)}
+
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .good{border-top:4px solid var(--green)}
+  .bad{border-top:4px solid var(--red)}
+  .good ul,.bad ul{list-style:none}
+  .good li,.bad li{padding:8px 10px 8px 32px;border-radius:10px;margin-bottom:6px;font-size:13.8px;position:relative}
+  .good li{background:var(--green-soft)}
+  .good li::before{content:"✔";position:absolute;left:10px;color:var(--green);font-weight:800}
+  .bad li{background:var(--red-soft)}
+  .bad li::before{content:"✘";position:absolute;left:10px;color:var(--red);font-weight:800}
+  .bad li .why-bad{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:2px}
+
+  /* ===== 高亮标签 ===== */
+  .badge{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;padding:2px 10px;border-radius:999px;white-space:nowrap}
+  .b-important{background:var(--red-soft);color:var(--red)}
+  .b-tip{background:var(--green-soft);color:var(--green)}
+  .b-warn{background:var(--gold-soft);color:var(--gold)}
+
+  .callout{
+    display:flex;gap:12px;align-items:flex-start;border-radius:14px;padding:16px 18px;margin:16px 0;
+    font-size:14px;
+  }
+  .callout .ic{font-size:22px;flex:0 0 auto}
+  .callout.c-red{background:var(--red-soft);border-left:4px solid var(--red)}
+  .callout.c-green{background:var(--green-soft);border-left:4px solid var(--green)}
+  .callout.c-gold{background:var(--gold-soft);border-left:4px solid var(--gold)}
+  .callout.c-teal{background:var(--sky-soft);border-left:4px solid var(--sky)}
+  .callout b{color:var(--ink)}
+
+  .footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:12.5px}
+  .backtop{
+    position:fixed;right:20px;bottom:22px;width:46px;height:46px;border-radius:50%;
+    background:var(--blue);color:#fff;font-size:20px;border:none;cursor:pointer;
+    box-shadow:var(--shadow-hover);display:flex;align-items:center;justify-content:center;
+    opacity:.85;transition:.2s;z-index:40;
+  }
+  .backtop:hover{opacity:1;transform:translateY(-3px)}
+
+  @media(max-width:640px){
+    .wrap{padding:0 14px 60px}
+    .hero{padding:26px 20px}
+    .two-col{grid-template-columns:1fr}
+    .nav-links a{font-size:12.5px;padding:5px 9px}
+    .timeline td,.timeline th{padding:11px 12px}
+  }
+</style>
+</head>
+<body>
+
+<!-- 顶部导航 -->
+<nav class="nav">
+  <div class="nav-inner">
+    <span class="nav-logo">🐱 新手养猫全攻略</span>
+    <div class="nav-links">
+      <a href="#timeline">各阶段时间轴</a>
+      <a href="#daily">每天喂食与铲屎</a>
+      <a href="#checklist">现在买什么</a>
+      <a href="#schedule">定期要做的</a>
+      <a href="#training">猫咪训练</a>
+      <a href="#special">专属建议</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ===== 第1章 时间轴 ===== -->
+  <section id="timeline">
+    <div class="sec-head">
+      <span class="no">1</span>
+      <span class="emo">📅</span>
+      <h2>各阶段养护时间轴</h2>
+    </div>
+    <p class="sec-desc">从你现在所处的 1 岁（成年期），一路到中年、老年。五大板块全覆盖，重点信息已高亮。猫 1 岁 ≈ 人 15 岁，7 岁 ≈ 人 44 岁，11 岁 ≈ 人 60 岁。</p>
+
+    <div class="table-wrap">
+      <table class="timeline">
+        <thead>
+          <tr>
+            <th>板块</th>
+            <th class="now">成年期（1–6 岁）<span class="st">✅ 你现在在这里</span></th>
+            <th>中年期（7–10 岁）<span class="st">≈ 人 40–50 岁</span></th>
+            <th>老年期（11 岁+）<span class="st">≈ 人 60 岁+</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span class="ic">🍖</span>饮食饮水</th>
+            <td class="now-col">
+              <ul>
+                <li><b>成年猫粮</b>，选动物蛋白含量高的（看配料表前几位是肉）</li>
+                <li><b>保证充足饮水</b>：多放几个水碗、可用流动饮水机</li>
+                <li>可搭配湿粮/主食罐头，既补水又开胃</li>
+                <li>定时定量，别自由暴食（详见第 2 章）</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>换<b>室内猫粮/控制热量</b>，防中年发福</li>
+                <li>体重若超标，改「减肥粮」并控制份量</li>
+                <li>关注<b>关节</b>，可加含软骨素的食物</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>换<b>老年猫粮</b>：易消化、优质蛋白</li>
+                <li><b>以湿粮为主</b>，帮补水和咀嚼</li>
+                <li>少吃多餐，必要时泡软粮</li>
+                <li>重点防脱水</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th><span class="ic">🚽</span>排泄与猫砂</th>
+            <td class="now-col">
+              <ul>
+                <li>猫砂盆 = 猫数 + 1，建议放 <b>2 个</b></li>
+                <li><b>每天铲屎</b>，顺便观察便便形态、尿量（详见第 2 章）</li>
+                <li>每 1–2 周彻底换新砂、洗盆</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li><b>重点观察排尿量和频率</b>，中年泌尿问题高发</li>
+                <li>尿团明显变多/变少都要警惕</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>换<b>低边、大口径</b>猫砂盆，方便进出</li>
+                <li>勤铲勤观察，老年猫更易便秘/漏尿</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th><span class="ic">🏠</span>居住环境与用品</th>
+            <td class="now-col">
+              <ul>
+                <li>必备：<b>猫抓板、猫爬架/高处、藏身箱</b></li>
+                <li>给一个安静的「安全角落」</li>
+                <li>远离阳台窗台（装纱窗防坠楼）</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>改<b>低矮猫爬架、加台阶/斜坡</b>，减少高处跳落伤关节</li>
+                <li>垫软垫，护关节</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>铺<b>保暖垫、电热垫（低温）</b>防关节冷</li>
+                <li>装<b>小夜灯</b>（老猫夜间视力下降）</li>
+                <li>保持通道无障碍、活动范围平坦</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th><span class="ic">🧹</span>清洁护理</th>
+            <td class="now-col">
+              <ul>
+                <li>短毛猫<b>每周梳毛 1–2 次</b>，减少掉毛和毛球</li>
+                <li><b>每 2–3 周剪指甲</b></li>
+                <li>定期看耳朵（耳螨）、眼睛、牙齿</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>增加梳毛频率（自理能力下降）</li>
+                <li>摸全身<b>检查皮肤肿块、异常</b></li>
+                <li>更重视口腔清洁</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>主动帮它梳毛（可能打理不动自己）</li>
+                <li>检查屁股、防褥疮和排泄物粘连</li>
+                <li>观察<b>认知变化</b>（走失、夜里叫、不认人）</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th><span class="ic">🩺</span>健康管理</th>
+            <td class="now-col">
+              <ul>
+                <li><b>每年 1 次体检</b>（血常规+生化）</li>
+                <li><b>疫苗加强</b>（遵医嘱，通常每年/每 3 年）</li>
+                <li>按药品说明<b>定期驱虫</b></li>
+                <li>称体重，记录基线</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li><b>每年体检升级</b>：加查肾功能、牙齿、甲状腺</li>
+                <li>重点筛查：肾、牙、甲亢、肥胖</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>改为<b>每 6 个月体检一次</b></li>
+                <li>重点查：肾功能、血压、关节、认知</li>
+                <li>体重持续下降要就医</li>
+                <li>提前规划晚年照护与临终关怀</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout c-red"><span class="ic">⚠️</span><div><b>贯穿一生的红色警报</b>：任何时候，只要出现「不吃不喝超过 24 小时、尿不出/尿血、频繁呕吐腹泻、呼吸困难、突然瘸腿或瘫软、抽搐」中的任何一条，<b>立即送医</b>，不要在家观察等待。</div></div>
+  </section>
+
+  <!-- ===== 第2章 每天喂食与铲屎 ===== -->
+  <section id="daily">
+    <div class="sec-head">
+      <span class="no">2</span>
+      <span class="emo">🍽️</span>
+      <h2>新手实操：每天怎么喂、怎么铲</h2>
+    </div>
+    <p class="sec-desc">你提到「喂食量、时间、次数」「什么时候铲屎、几次」都不懂——这一章手把手教你，全是每天的日常动作。</p>
+
+    <h3 style="font-size:18px;margin:8px 0 12px">🍖 一、喂食：吃多少、几点吃、吃几次</h3>
+
+    <div class="table-wrap" style="margin-bottom:14px">
+      <table class="info">
+        <thead>
+          <tr><th>时间</th><th>喂什么</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>07:30–08:00<br>早餐</th>
+            <td>干粮（约一天总量的 1/2）</td>
+            <td>固定时间，先喊名字再放饭，帮它认名</td>
+          </tr>
+          <tr>
+            <th>12:00–13:00<br>午餐（可选）</th>
+            <td>少量干粮</td>
+            <td>上班族可省略，只喂早晚两餐也完全没问题</td>
+          </tr>
+          <tr>
+            <th>19:00–20:00<br>晚餐</th>
+            <td>干粮 + 湿粮/主食罐头</td>
+            <td>湿粮补水又开胃，对泌尿健康好</td>
+          </tr>
+          <tr>
+            <th>睡前</th>
+            <td>换新鲜水</td>
+            <td>每天换 2–3 次水，猫爱喝新鲜水</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout c-teal"><span class="ic">💡</span><div><b>喂几次？</b>成年猫一天 <b>2–3 餐</b>，定时定量。推荐「早、晚各一餐」，有条件的加一餐午餐。<b>不要全天无限量自助餐</b>——容易吃胖，也不利于你观察它的食欲变化。</div></div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <h3>🥣 每次喂多少（按体重）</h3>
+        <p class="pn-sub">干粮参考量，最终以你买的那包猫粮包装袋上的「每日喂食量」为准</p>
+        <ul>
+          <li><b>3 kg</b>：每日干粮约 45–60g<span class="why">分 2–3 餐喂</span></li>
+          <li><b>4 kg</b>：每日干粮约 60–80g<span class="why">最常见体重，按这个起步</span></li>
+          <li><b>5 kg</b>：每日干粮约 75–95g<span class="why">偏重就要往少了给</span></li>
+        </ul>
+        <div class="callout c-gold" style="margin:12px 0 0"><span class="ic">⚠️</span><div><b>每款猫粮热量不同</b>，包装袋上一定印有「按体重的每日喂食量」，以它为准；换算成克数可用厨房电子秤称一次就心里有数了。</div></div>
+      </div>
+      <div class="panel">
+        <h3>🥫 湿粮 / 罐头怎么加</h3>
+        <p class="pn-sub">干湿混喂更健康</p>
+        <ul>
+          <li>只吃湿粮：85g 主食罐头一天约 <b>1.5–2 罐</b></li>
+          <li>干湿混喂：干粮减半 + 每天半罐到一罐湿粮<span class="why">混喂时按热量折算，别叠加到超标</span></li>
+          <li>湿粮开封后要冷藏，<b>2 天内吃完</b>，别放室温太久</li>
+          <li>刚从冰箱拿出，可回温到室温再喂</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-size:18px;margin:20px 0 12px">💧 二、喝水（泌尿健康的关键）</h3>
+    <div class="grid-2">
+      <div class="panel">
+        <ul>
+          <li><b>换水时间建议</b>：早上起床后、午后、晚上睡前各换一次（一天 2–3 次）；看到水面有浮毛、水凉了或明显变少，就顺手换掉。</li>
+          <li>每日需水量约 <b>40–60ml / 每公斤体重</b>：4kg 的猫一天约需 <b>160–240ml</b> 水。</li>
+          <li>多放几个水碗（卧室、客厅各一个），每个都勤换、常刷洗。</li>
+          <li>猫天生不爱喝静止的水，<b>流动饮水机</b>能明显增加饮水量。</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <ul>
+          <li>水碗要 <b>宽口、陶瓷或不锈钢</b>，别太深（胡须碰到碗边会让猫不舒服、不愿喝）。</li>
+          <li>湿粮本身含水 70–80%，是「骗水」神器。</li>
+          <li>判断是否缺水：轻提后颈皮肤，<b>松手后立刻回弹</b>=正常；回弹慢=可能缺水。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout c-red"><span class="ic">🚫</span><div><b>这些绝对不能喂（有毒）</b>：洋葱/大葱/大蒜/韭菜、巧克力、葡萄/葡萄干、咖啡/茶/酒精、木糖醇、生鸡蛋生肉（有细菌寄生虫风险）、鸡骨头鱼刺、过咸的食物、<b>牛奶</b>（多数成年猫乳糖不耐，喝了会拉肚子）。想加餐，就喂猫专用零食或煮熟的鸡胸肉（无盐）。</div></div>
+
+    <h3 style="font-size:18px;margin:20px 0 12px">🧹 三、铲屎与猫砂：什么时候铲、几次</h3>
+
+    <div class="table-wrap" style="margin-bottom:14px">
+      <table class="info">
+        <thead>
+          <tr><th>事项</th><th>频率</th><th>怎么做 / 为什么</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>铲屎</th>
+            <td><span class="freq f-daily">每天 1–2 次</span></td>
+            <td>早、晚各铲一次（有条件看到就铲）。猫爱干净，脏猫砂盆会逼它乱尿。</td>
+          </tr>
+          <tr>
+            <th>补砂</th>
+            <td><span class="freq f-week">每周</span></td>
+            <td>保持猫砂厚度 <b>5–8cm</b>，太浅猫埋不住、容易沾底。</td>
+          </tr>
+          <tr>
+            <th>彻底换新砂 + 洗盆</th>
+            <td><span class="freq f-week">每 1–2 周</span></td>
+            <td>旧砂藏菌藏味，倒掉旧砂、用清水或宠物专用清洁剂刷盆、晾干再铺新砂。</td>
+          </tr>
+          <tr>
+            <th>洗猫砂铲</th>
+            <td><span class="freq f-week">每周</span></td>
+            <td>铲子也藏菌，顺手洗一洗。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📦 猫砂盆怎么摆</h3>
+        <ul>
+          <li>数量 = 猫数 + 1，你家 1 只猫，<b>放 2 个</b>更保险。</li>
+          <li>放在<b>安静、通风、猫常活动</b>的角落，别频繁换位置。</li>
+          <li><b>远离食盆和水盆</b>——猫不喜欢在吃饭的地方上厕所。</li>
+          <li>别放在洗衣机、热水器等会突然响的电器旁（猫会被吓到而不敢用）。</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>🔍 铲屎时顺便「看诊」</h3>
+        <ul>
+          <li><b>便便正常</b>：成形、棕褐色、软硬适中，一天 1 次左右（1–2 天 1 次也正常）。</li>
+          <li><b>尿团正常</b>：4kg 猫每天约 <b>2–4 个</b>拳头大小的尿团。</li>
+          <li><b>便便异常就医</b>：稀水、带血、黑色、白色，或连续 2 天以上不便便。</li>
+          <li><b>尿团异常就医</b>：突然变少/没有、带血、频繁蹲却尿不出、尿团突然变多变大。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout c-teal"><span class="ic">✅</span><div><b>怎么判断喂多喂少了？</b>① 从上往下看猫的背部有轻微「腰线」、摸肋骨能感觉到但不明显凸出，就是标准体型；② 便便软烂偏多=可能喂多了，偏干硬=喂少了或水喝少了；③ <b>每月称一次体重</b>，成年后体重稳定在合理区间就对了。</div></div>
+  </section>
+
+  <!-- ===== 第3章 清单 ===== -->
+  <section id="checklist">
+    <div class="sec-head">
+      <span class="no">3</span>
+      <span class="emo">🛒</span>
+      <h2>当前（1 岁）立即要准备的物品清单</h2>
+    </div>
+    <p class="sec-desc">按「必须 / 建议 / 可选」三档给你，照着买就不会漏，也不用乱花钱。</p>
+
+    <div class="grid-3">
+      <div class="panel must">
+        <h3>⭐ 必须马上备齐</h3>
+        <p class="pn-sub">接猫回家当天就要有</p>
+        <ul>
+          <li>成年猫粮<span class="why">高蛋白、符合 1 岁成年猫营养</span></li>
+          <li>食盆 + 水盆<span class="why">陶瓷或不锈钢，别用塑料（易藏菌致黑下巴）</span></li>
+          <li>猫砂 + 猫砂盆（2 个）+ 猫砂铲<span class="why">猫咪基本厕所需求</span></li>
+          <li>猫抓板<span class="why">磨爪是天性，没抓板它就去抓沙发</span></li>
+          <li>藏身箱 / 猫窝<span class="why">流浪猫需要躲藏的安全感</span></li>
+          <li>指甲剪<span class="why">定期修剪，防抓伤和指甲倒勾</span></li>
+          <li>梳毛刷<span class="why">每周梳毛，减少掉毛和毛球</span></li>
+          <li>猫包 / 航空箱<span class="why">出门、就医、应急必备</span></li>
+        </ul>
+      </div>
+
+      <div class="panel nice">
+        <h3>👍 强烈建议</h3>
+        <p class="pn-sub">提升生活质量，值得投资</p>
+        <ul>
+          <li>逗猫棒等互动玩具<span class="why">每天陪玩消耗精力、增进感情</span></li>
+          <li>猫爬架 / 高处平台<span class="why">猫爱登高，也提供安全感</span></li>
+          <li>流动饮水机<span class="why">猫更喜欢活水，能多喝水护肾</span></li>
+          <li>湿粮 / 主食罐头<span class="why">补水、开胃，泌尿健康加分</span></li>
+          <li>猫草 / 化毛膏<span class="why">帮排毛球，尤其换毛季</span></li>
+          <li>厨房电子秤<span class="why">称猫粮，把「喂多少」落到实处</span></li>
+        </ul>
+      </div>
+
+      <div class="panel opt">
+        <h3>💡 可选 / 进阶</h3>
+        <p class="pn-sub">有条件再添置</p>
+        <ul>
+          <li>摄像头<span class="why">不在家时观察它、远程互动</span></li>
+          <li>伊丽莎白圈（备用）<span class="why">就医/伤口时防舔</span></li>
+          <li>宠物专用除臭剂 / 清洁酶<span class="why">万一乱尿，彻底除味防重复</span></li>
+          <li>猫薄荷 / 木天蓼<span class="why">放松解压，部分猫喜欢</span></li>
+          <li>自动喂食器 / 定时器<span class="why">固定作息，出差也放心</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout c-teal"><span class="ic">💡</span><div><b>省钱小技巧</b>：简州猫是短毛、皮实的本土猫，不需要花哨的「进口零食」「衣服」。把钱花在<b>好猫粮、好猫砂、好医疗</b>这三样上，性价比最高。</div></div>
+  </section>
+
+  <!-- ===== 第4章 定期 ===== -->
+  <section id="schedule">
+    <div class="sec-head">
+      <span class="no">4</span>
+      <span class="emo">📋</span>
+      <h2>今后定期要做的事</h2>
+    </div>
+    <p class="sec-desc">记住下面的频率，形成习惯就好。每件事都写了「为什么」，知道原因才容易坚持。</p>
+
+    <div class="grid-3">
+      <div class="panel">
+        <h3>每天 <span class="freq f-daily">每日</span></h3>
+        <ul class="schedule">
+          <li><div class="row"><div class="why"><b>铲屎、看尿量</b><br>猫最怕憋尿，尿团多少是健康晴雨表；脏猫砂盆会逼它乱尿。</div></div></li>
+          <li><div class="row"><div class="why"><b>换新鲜水</b><br>猫不爱喝放久的水，新鲜水才愿意喝，多喝水护肾。</div></div></li>
+          <li><div class="row"><div class="why"><b>定时定量喂食</b><br>规律作息让猫有安全感，也防肥胖。</div></div></li>
+          <li><div class="row"><div class="why"><b>互动陪玩 15–30 分钟</b><br>消耗精力、缓解压力、增进感情。</div></div></li>
+          <li><div class="row"><div class="why"><b>观察精神状态</b><br>猫会藏病，食欲、活动量突然变化是最早的信号。</div></div></li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h3>每周 <span class="freq f-week">每周</span></h3>
+        <ul class="schedule">
+          <li><div class="row"><div class="why"><b>梳毛 1–2 次</b><br>减少掉毛、防毛球、还能及早发现皮肤问题。</div></div></li>
+          <li><div class="row"><div class="why"><b>检查耳朵、眼睛、牙齿</b><br>耳螨、眼屎异常、牙结石早期都好处理。</div></div></li>
+          <li><div class="row"><div class="why"><b>剪指甲（约每 2–3 周）</b><br>防抓伤、防指甲长到勾进肉里。</div></div></li>
+          <li><div class="row"><div class="why"><b>清洗食盆水碗</b><br>防细菌滋生，避免「黑下巴」和肠胃病。</div></div></li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h3>每月 <span class="freq f-month">每月</span></h3>
+        <ul class="schedule">
+          <li><div class="row"><div class="why"><b>体内外驱虫（按药说明）</b><br>寄生虫感染会贫血、消瘦、传人，必须按时。</div></div></li>
+          <li><div class="row"><div class="why"><b>称体重并记录</b><br>体重骤变是健康警钟，也是防肥胖的依据。</div></div></li>
+          <li><div class="row"><div class="why"><b>彻底清洗猫砂盆、换新砂</b><br>旧砂藏菌藏味，定期更换更卫生。</div></div></li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h3>每半年 <span class="freq f-6m">半年</span></h3>
+        <ul class="schedule">
+          <li><div class="row"><div class="why"><b>视情况做一次健康检查</b><br>中老年猫建议半年一体检，早发现早治疗。</div></div></li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h3>每年 <span class="freq f-year">每年</span></h3>
+        <ul class="schedule">
+          <li><div class="row"><div class="why"><b>疫苗加强（遵医嘱）</b><br>抗体随时间减弱，加强针维持保护力。</div></div></li>
+          <li><div class="row"><div class="why"><b>全面体检（血常规+生化+尿检）</b><br>筛查肾脏、血糖、感染等隐患。</div></div></li>
+          <li><div class="row"><div class="why"><b>口腔检查 / 必要时洗牙</b><br>牙结石会引发口炎、影响进食和全身健康。</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 第5章 训练 ===== -->
+  <section id="training">
+    <div class="sec-head">
+      <span class="no">5</span>
+      <span class="emo">🎓</span>
+      <h2>猫咪训练：沟通比命令更重要</h2>
+    </div>
+    <p class="sec-desc">猫不是狗，不能用「训练狗」的方式。猫咪训练的核心是<span class="badge b-tip">正向强化</span>——做对了给奖励，让它把「好行为」和「好事」联系起来。</p>
+
+    <div class="train-grid">
+      <div class="train">
+        <h3>🐾 教它听懂自己的名字</h3>
+        <ol>
+          <li>起一个<b>简短、发音清晰</b>的名字（2 个音节最好）。</li>
+          <li>每次<b>喂食、给零食、玩耍</b>前，先喊名字再行动。</li>
+          <li>它一看向你，<b>立刻给零食 + 温柔夸奖</b>。</li>
+          <li>每天重复几次，坚持 1–2 周，它就明白「这声音 = 好事」。</li>
+          <li><b>别在骂它的时候喊名字</b>，否则它会讨厌自己的名字。</li>
+        </ol>
+      </div>
+
+      <div class="train">
+        <h3>🎯 教基础指令（过来 / 坐）</h3>
+        <ol>
+          <li><b>「过来」</b>：蹲下、伸出手、喊「过来」，来了就给零食。从近到远逐步拉长距离。</li>
+          <li><b>「坐」</b>：把零食举在它头顶上方慢慢后移，它自然抬头坐下，立刻给奖励。</li>
+          <li>每次训练<b>3–5 分钟</b>就停，猫注意力有限，短而高频才有效。</li>
+          <li>永远<b>用零食和夸奖</b>做奖励，不用惩罚逼它做。</li>
+          <li>抓准时机：<b>在它「刚好做出」动作的瞬间</b>立刻奖励。</li>
+        </ol>
+      </div>
+
+      <div class="train">
+        <h3>🚽 纠正乱拉乱尿</h3>
+        <ol>
+          <li><b>先找原因，而不是先怪它</b>：生病？猫砂盆太脏？不喜欢砂？位置不对？有压力？</li>
+          <li>先排除<b>泌尿系统疾病</b>（乱尿常是尿路感染/结石的信号，尤其母猫）。</li>
+          <li><b>增加猫砂盆、勤铲勤换</b>，试试不同的猫砂。</li>
+          <li>用<b>酶解清洁剂</b>彻底除味（普通清洁剂盖不住猫的嗅觉）。</li>
+          <li>温和引导它到猫砂盆，并在它「用对厕所」时奖励。</li>
+        </ol>
+      </div>
+
+      <div class="train">
+        <h3>🤝 建立人猫沟通习惯</h3>
+        <ol>
+          <li>学会<b>「慢眨眼」</b>：看着它、缓缓眨眼，这是猫界「我爱你」，能快速拉近距离。</li>
+          <li><b>尊重它的界限</b>：它走开就不追、不强行抱，它反而更黏你。</li>
+          <li>读懂身体语言：<b>尾巴竖直</b>=友好；<b>飞机耳、尾巴炸毛、哈气</b>=害怕/生气，立刻停下。</li>
+          <li>保持<b>固定作息和一致口令</b>，让生活可预测，安全感满满。</li>
+        </ol>
+      </div>
+    </div>
+
+    <h3 style="margin:26px 0 14px;font-size:18px">正确纠正 vs 无效有害的惩罚</h3>
+    <div class="two-col">
+      <div class="panel good">
+        <h3>✔ 有效的纠正方式</h3>
+        <ul>
+          <li><b>即时、温和地打断</b>：轻轻说「不行」，然后把它引到正确的地方。</li>
+          <li><b>转移注意力</b>：抓沙发时，给它猫抓板并奖励用对的行为。</li>
+          <li><b>环境管理</b>：提前收好危险/易碎物品，从源头杜绝「犯错」。</li>
+          <li><b>忽视不良行为</b>：有些「求关注」的捣乱，不理它反而会消失。</li>
+          <li><b>正向强化好行为</b>：用对猫砂盆、不抓家具时，给零食和夸奖。</li>
+        </ul>
+      </div>
+      <div class="panel bad">
+        <h3>✘ 无效且有害的惩罚（千万别做）</h3>
+        <ul>
+          <li><b>打它、拍头</b><span class="why-bad">猫只会恐惧你，破坏信任，还可能反击伤人。</span></li>
+          <li><b>喷水、大声吼叫</b><span class="why-bad">制造恐惧和应激，它根本不懂「为什么」。</span></li>
+          <li><b>把脸按进排泄物</b><span class="why-bad">毫无作用，只会让它害怕和更乱尿。</span></li>
+          <li><b>关禁闭 / 事后惩罚</b><span class="why-bad">猫无法把「几小时前的事」和惩罚联系起来。</span></li>
+          <li><b>体罚、饿饭</b><span class="why-bad">伤害身心，引发攻击性、抑郁或更多行为问题。</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-gold"><span class="ic">🐱</span><div><b>记住一句话</b>：猫的「捣乱」几乎都源于<b>恐惧、生病或需求没满足</b>，而不是「故意气你」。找到原因、满足它，问题自然消失。</div></div>
+  </section>
+
+  <!-- ===== 第6章 专属建议 ===== -->
+  <section id="special">
+    <div class="sec-head">
+      <span class="no">6</span>
+      <span class="emo">💝</span>
+      <h2>给你的猫的专属建议</h2>
+    </div>
+    <p class="sec-desc">结合它的<b>流浪经历</b>和<b>曾怀孕的过往</b>，这几条特别重要，请重点读。</p>
+
+    <div class="grid-3">
+      <div class="panel">
+        <h3>🤗 性格适应：慢慢来</h3>
+        <ul>
+          <li>流浪猫<b>警惕性高、怕生、爱躲藏</b>，这是生存本能，不是「不亲人」。</li>
+          <li><b>别急着抱、急着亲近</b>，先让它观察你、适应气味。</li>
+          <li>用<b>食物建立好感</b>：定时喂食，慢慢靠近。</li>
+          <li>给它时间，简州猫聪明又重感情，信任后会很黏人。</li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h3>🏡 安全感建立</h3>
+        <ul>
+          <li><b>先只给一个小房间</b>（放好猫砂、粮、水、藏身箱），适应后再逐步扩大活动范围。</li>
+          <li><b>固定作息和喂食时间</b>——可预测 = 安全。</li>
+          <li>提供<b>高处和藏身处</b>，让它随时能躲。</li>
+          <li>家里避免突然巨响、强追强抱，客人来访给它安静空间。</li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h3>⚖️ 体重管理（曾怀孕+绝育）</h3>
+        <ul>
+          <li>绝育后<b>代谢下降、容易发胖</b>，怀孕史也意味着身体曾消耗大。</li>
+          <li><b>定时定量喂食</b>，别无限量自助餐。</li>
+          <li><b>定期称重</b>，控制体重稳定，防肥胖引发糖尿病、关节病。</li>
+          <li>保证每天运动：逗猫棒陪玩、登高、追逐游戏。</li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h3>💧 泌尿系统健康（重点）</h3>
+        <ul>
+          <li>母猫 + 曾怀孕 + 绝育，泌尿问题风险相对偏高，<b>要特别上心</b>。</li>
+          <li><b>多喝水是头号预防</b>：多放水碗、用流动水、掺湿粮。</li>
+          <li><b>减少压力</b>：应激是诱发尿路病的重要原因。</li>
+          <li>每天看尿团：<b>尿频、尿少、尿血、乱尿、蹲半天尿不出</b>→ 立即就医。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout c-green"><span class="ic">❤️</span><div><b>给新手的最后一句鼓励</b>：你已经做得很好——领养一只流浪过的成年猫，给了它一个安稳的家。养猫没有「完美」，用心观察、及时就医、慢慢建立信任，剩下的交给时间。你们会越来越合拍的。</div></div>
+  </section>
+
+  <footer class="footer">
+    <p>本攻略为通用养护建议，不能替代兽医诊断。所有用药（驱虫、疫苗）和异常症状处理，请务必咨询执业兽医师。</p>
+    <p style="margin-top:6px">🐱 献给这位简州猫妹妹，祝你们相处愉快。</p>
+  </footer>
+</div>
+
+<button class="backtop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到顶部">↑</button>
+
+<script>
+  const btn = document.querySelector('.backtop');
+  window.addEventListener('scroll', () => {
+    btn.style.display = window.scrollY > 600 ? 'flex' : 'none';
+  });
+  btn.style.display = 'none';
+</script>
+</body>
+</html>
